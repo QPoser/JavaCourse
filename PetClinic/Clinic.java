@@ -46,4 +46,24 @@ public class Clinic {
             return false;
         }
     }
+    
+    public void findPet(String petName) {
+        for (int i = 0; i<clients.length; i++) {
+        if (clients[i] != null && clients[i].getPet() != null) {
+        if(clients[i].getPet().getName().equals(petName)) {
+            System.out.println(clients[i].getName() + " have a pet " + clients[i].getPet().getName());
+        }
+            }
+        }
+    }
+    
+    public void deleteClient(String name) {
+        for (int i = 0; i<clients.length; i++) {
+            if (clients[i].getName().equals(name)) {
+                clients[i] = null;
+                System.out.println(name + " deleted!");
+                break;
+            }
+        }
+    }
 }

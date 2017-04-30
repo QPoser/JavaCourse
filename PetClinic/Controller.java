@@ -66,5 +66,46 @@ public class Controller {
             
     }
     
+    public void Find(Clinic clinic, String parts[]) {
+        clinic.findPet(parts[2]);
+    }
+    
+    public void Rename(Clinic clinic, String parts[]) {
+        client = clinic.getClient(parts[2]);
+            if (client != null) {
+        switch (parts[1].toLowerCase()) {
+            case "client":
+                if (clinic.isCanAdd(parts[3])) {
+                client.rename(parts[3]);
+                System.out.println(parts[2] + " is now " + parts[3]);
+                } else System.out.println(parts[3] + " closed!");
+                break;
+                
+            case "pet":
+                if (client.getPet() != null) {
+                    System.out.println("Pet: " + client.getPet().getName() + " is now " + parts[3]);
+                    client.renamePet(parts[3]);
+                } else System.out.println(client.getName() + " have not pet!");
+                break;
+        }
+      } else System.out.println(parts[2] + " dont find");
+    }
+    
+    public void Delete(Clinic clinic, String parts[]) {
+        switch (parts[1]) {
+            case "client":
+                clinic.deleteClient(parts[2]);
+                break;
+                
+            case "pet":
+                client = clinic.getClient(parts[2]);
+                if (client != null) {
+                    client.deletePet();
+                    System.out.println("Pet deleted!");
+                } else System.out.println(parts[2] + " dont found!");
+                break;
+        }
+    }
+    
     
 }

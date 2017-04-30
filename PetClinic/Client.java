@@ -24,5 +24,22 @@ public class Client {
         }
     }
     
+    public void rename(String name) {
+        this.name = name;
+    }
+    
+    public void renamePet(String petName) {
+        if (pet != null) {
+        pet.rename(petName);
+        }
+        else {
+            System.out.println(name + ": i dont have pet!");
+        }
+    }
+    
+    public void deletePet() {
+        this.pet = null;
+    }
+    
     
 }

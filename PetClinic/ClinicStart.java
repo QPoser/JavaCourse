@@ -32,6 +32,19 @@ public class ClinicStart {
                 control.Get(clinic, parts);
                 break;
                 
+            case "find":
+                control.Find(clinic, parts);
+                break;
+                
+            case "rename":
+                control.Rename(clinic, parts);
+                break;
+                
+            case "delete":
+                control.Delete(clinic, parts);
+                break;
+                
+                
                 
             case "exit":
             System.out.println("Exit! Goodbye!");
