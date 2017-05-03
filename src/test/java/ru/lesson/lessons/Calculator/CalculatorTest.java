@@ -12,17 +12,33 @@ import static org.junit.Assert.*;
 public class CalculatorTest {
 
     @Test
+    public void minus() throws Exception {
+        Calculator calculator = new Calculator();
+        calculator.minus(9, 7);
+        assertEquals(2, calculator.getResult());
+    }
+
+    @Test
+    public void multiply() throws Exception {
+        Calculator calculator = new Calculator();
+        calculator.multiply(2, 3);
+        assertEquals(6, calculator.getResult());
+    }
+
+
+    @Test
     public void testPlus() throws Exception {
         Calculator calculator = new Calculator();
-        calculator.plus(1, 1);
-        assertEquals(2, calculator.getResult());
+        calculator.plus(3, 8);
+        assertEquals(11, calculator.getResult());
     }
 
     @Test
     public void dividing() throws Exception {
         Calculator calculator = new Calculator();
-        calculator.dividing(1, 1);
-        assertEquals(1, calculator.getResult());
+        calculator.dividing(6, 3);
+        assertEquals(2, calculator.getResult());
     }
+
 
 }

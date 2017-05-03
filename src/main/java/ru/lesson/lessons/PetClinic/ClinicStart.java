@@ -3,6 +3,9 @@ package ru.lesson.lessons.PetClinic;
 import java.util.Scanner;
 import java.io.*;
 
+/**
+ * Вход в программу клиники
+ */
 public class ClinicStart {
     private static Controller control = new Controller();
     
