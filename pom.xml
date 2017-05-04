@@ -30,6 +30,24 @@
       <target>1.8</target>
     </configuration>
   </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <configuration>
+        <archive>
+          <index>true</index>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <mainClass>ru.lesson.lessons.PetClinic.ClinicStart</mainClass>
+          </manifest>
+          <manifestEntries>
+            <mode>development</mode>
+            <url>${project.url}</url>
+            <key>value</key>
+          </manifestEntries>
+        </archive>
+      </configuration>
+    </plugin>
 </plugins>
         </build>
     

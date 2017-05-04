@@ -28,8 +28,12 @@ public class ClinicStart {
         
         switch (parts[0]) {
                 
-            case "add": 
-                control.Add(clinic, parts);
+            case "add":
+                try {
+                    control.Add(clinic, parts);
+                } catch (Exception p) {
+                    System.out.println("Введите корректные поля, для клиента - 3, для животного - 6");
+                }
                 break;
                 
                 

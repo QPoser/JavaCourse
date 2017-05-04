@@ -1,43 +1,59 @@
 package ru.lesson.lessons.PetClinic;
 
+import javax.jws.soap.SOAPBinding;
+
 public class Controller {
     Pet pet = null;
     Client client = null;
-    
-    public void Add(Clinic clinic, String parts[]) {
+
+
+    /**
+     * Производим добавление клиентов в клинику \ животных к клиенту
+     * @param clinic
+     * @param parts
+     * @throws UserExceptions Если при добавлении клиента != 3
+     */
+    public void Add(Clinic clinic, String parts[]) throws UserExceptions {
         switch (parts[1].toLowerCase()) {
             case "client":
-                 if (clinic.isCanAdd(parts[2])) {
-                    Client client = new Client(parts[2]);
-                    clinic.addClient(client);
-                    System.out.println(client.getName() + " Added");
-                    break;
-                }
-                 else {
-                    System.out.println("Cant");
-                    break;
-                } 
+                if (parts.length == 3) {
+                    if (clinic.isCanAdd(parts[2])) {
+                        Client client = new Client(parts[2]);
+                        clinic.addClient(client);
+                        System.out.println(client.getName() + " Added");
+                        break;
+                    } else {
+                        System.out.println("Cant");
+                        break;
+                    }
+                } else throw new IllegalStateException("Put three types!");
+
                 
             case "pet":
-                Client client = clinic.getClient(parts[5]);
-                if (client != null) {
-                    switch(parts[2]) {
-                        case "cat":
-                            pet = new Cat(parts[3], Integer.parseInt(parts[4]));
-                            client.setPet(pet);
-                            break;
-                            
-                        case "dog":
-                            pet = new Dog(parts[3], Integer.parseInt(parts[4]));
-                            client.setPet(pet);
-                            break;
+                if (parts.length == 6) {
+                    Client client = clinic.getClient(parts[5]);
+                    if (client != null) {
+                        try {
+                            switch (parts[2]) {
+                                case "cat":
+                                    pet = new Cat(parts[3], Integer.parseInt(parts[4]));
+                                    client.setPet(pet);
+                                    break;
+
+                                case "dog":
+                                    pet = new Dog(parts[3], Integer.parseInt(parts[4]));
+                                    client.setPet(pet);
+                                    break;
+                            }
+                        } catch(Exception e) {
+                            System.out.println(parts[4] + " - not a int");
+                        }
+                        break;
+                    } else {
+                        System.out.println("Cant find client " + parts[5]);
+                        break;
                     }
-                    break;
-                }
-                else {
-                    System.out.println("Cant find client " + parts[5]);
-                break;
-                }
+                } else throw new IllegalStateException("Put six types!");
         }
     }
     
