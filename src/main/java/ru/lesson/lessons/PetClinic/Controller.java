@@ -1,6 +1,6 @@
 package ru.lesson.lessons.PetClinic;
 
-import javax.jws.soap.SOAPBinding;
+import java.util.Scanner;
 
 public class Controller {
     Pet pet = null;
@@ -10,120 +10,94 @@ public class Controller {
     /**
      * Производим добавление клиентов в клинику \ животных к клиенту
      * @param clinic
-     * @param parts
+     * @param
      * @throws UserExceptions Если при добавлении клиента != 3
      */
-    public void Add(Clinic clinic, String parts[]) throws UserExceptions {
-        switch (parts[1].toLowerCase()) {
-            case "client":
-                if (parts.length == 3) {
-                    if (clinic.isCanAdd(parts[2])) {
-                        Client client = new Client(parts[2]);
-                        clinic.addClient(client);
-                        System.out.println(client.getName() + " Added");
-                        break;
-                    } else {
-                        System.out.println("Cant");
-                        break;
-                    }
-                } else throw new IllegalStateException("Put three types!");
+    public void addClient(Clinic clinic, String name) {
+            Client client = new Client(name);
+            clinic.addClient(client);
+        }
+    
+    public boolean getClients(Clinic clinic, String name) {
+                return clinic.getClients(name);
+    }
 
-                
-            case "pet":
-                if (parts.length == 6) {
-                    Client client = clinic.getClient(parts[5]);
-                    if (client != null) {
-                        try {
-                            switch (parts[2]) {
-                                case "cat":
-                                    pet = new Cat(parts[3], Integer.parseInt(parts[4]));
-                                    client.setPet(pet);
-                                    break;
+    public Client getClient(Clinic clinic, int id) {
+        return clinic.getClient(id);
+    }
 
-                                case "dog":
-                                    pet = new Dog(parts[3], Integer.parseInt(parts[4]));
-                                    client.setPet(pet);
-                                    break;
-                            }
-                        } catch(Exception e) {
-                            System.out.println(parts[4] + " - not a int");
-                        }
-                        break;
-                    } else {
-                        System.out.println("Cant find client " + parts[5]);
-                        break;
-                    }
-                } else throw new IllegalStateException("Put six types!");
-        }
+    public void putClient(Clinic clinic, int id, Client client) {
     }
+
     
-    public void Get(Clinic clinic, String parts[]) {
-         client = clinic.getClient(parts[2]);
-        switch (parts[1]) {
-            case "client":
-                if (client == null) {
-                    System.out.println("Cant find client!");
-                } else {
-                    System.out.println(client.getName() + " Searched");
-                }
-                break;
-                
-            case "pet":
-                if (client == null) {
-                    System.out.println("Cant find client!");
-                } else {
-                    pet = client.getPet();
-                    if (pet != null) {
-                    System.out.println("Pet name - " + pet.getName() + ", years old - " + pet.getAge() + " and type - " + pet.type());
-                    } else {
-                        System.out.println(client.getName() + " haven't pet");
-                    }
-                }
-                break;
+    public Boolean getPets(Clinic clinic, String namePet) {
+        return clinic.getPets(namePet);
+    }
+    //
+    public void rename(Clinic clinic, Integer id) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Print name:");
+        String name = scanner.nextLine();
+        clinic.getClient(id).rename(name);
+    }
+
+    public void addPet(Clinic clinic, Integer id) {
+        //Addpet function
+        System.out.println("Put:");
+        System.out.println("Type / Name / Age");
+        Boolean b = true;
+        while (b) {
+            Scanner scanner = new Scanner(System.in);
+            String parts[] = scanner.nextLine().split(" ");
+            switch (parts[0].toLowerCase()) {
+                case "dog":
+                    pet = new Dog(parts[1], Integer.parseInt(parts[2]));
+                    b = false;
+                    break;
+
+                case "cat":
+                    pet = new Cat(parts[1], Integer.parseInt(parts[2]));
+                    b = false;
+                    break;
+
+                default:
+                    System.out.println("Bad parse, put:");
+                    System.out.println("Type / Name / Age");
+                    break;
+            }
         }
-            
+        clinic.getClient(id).setPet(pet);
     }
-    
-    public void Find(Clinic clinic, String parts[]) {
-        clinic.findPet(parts[2]);
+
+    public void renamePet(Clinic clinic, Integer id) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Print pet name:");
+        String namePet = scanner.nextLine();
+        clinic.getClient(id).renamePet(namePet);
     }
-    
-    public void Rename(Clinic clinic, String parts[]) {
-        client = clinic.getClient(parts[2]);
-            if (client != null) {
-        switch (parts[1].toLowerCase()) {
-            case "client":
-                if (clinic.isCanAdd(parts[3])) {
-                client.rename(parts[3]);
-                System.out.println(parts[2] + " is now " + parts[3]);
-                } else System.out.println(parts[3] + " closed!");
-                break;
-                
-            case "pet":
-                if (client.getPet() != null) {
-                    System.out.println("Pet: " + client.getPet().getName() + " is now " + parts[3]);
-                    client.renamePet(parts[3]);
-                } else System.out.println(client.getName() + " have not pet!");
-                break;
-        }
-      } else System.out.println(parts[2] + " dont find");
+
+    public void deletePet(Clinic clinic, Integer id) {
+        clinic.getClient(id).setPet(null);
+        System.out.println("Pet deleted!");
     }
-    
-    public void Delete(Clinic clinic, String parts[]) {
-        switch (parts[1]) {
-            case "client":
-                clinic.deleteClient(parts[2]);
-                break;
-                
-            case "pet":
-                client = clinic.getClient(parts[2]);
-                if (client != null) {
-                    client.deletePet();
-                    System.out.println("Pet deleted!");
-                } else System.out.println(parts[2] + " dont found!");
-                break;
-        }
+
+    //
+    public void delete(Clinic clinic, Integer id) {
+        clinic.deleteClient(id);
     }
+
+    public void getBalance(Clinic clinic, Integer id) {
+        System.out.println(clinic.getClient(id).getBalance());
+    }
+
+    public void setBalance(Clinic clinic, Integer id) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Put balance:");
+        long put = scanner.nextLong();
+            clinic.getClient(id).putBalance(put);
+            System.out.println("Success, current balance - " + clinic.getClient(id).getBalance());
+    }
+
     
     
 }

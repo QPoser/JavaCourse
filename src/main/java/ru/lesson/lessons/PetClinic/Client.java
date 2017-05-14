@@ -3,9 +3,18 @@ package ru.lesson.lessons.PetClinic;
 public class Client {
     private String name;
     private Pet pet = null;
+    private long balance = 0;
     
     Client(String name) {
         this.name = name;
+    }
+
+    public void putBalance(long plusBalance) {
+        this.balance = this.balance + plusBalance;
+    }
+
+    public long getBalance() {
+        return this.balance;
     }
     
     public String getName() {
@@ -35,12 +44,18 @@ public class Client {
         pet.rename(petName);
         }
         else {
-            System.out.println(name + ": i dont have pet!");
+            System.out.println(name + ": i don't have pet!");
         }
     }
     
     public void deletePet() {
         this.pet = null;
+    }
+
+    public boolean isHavePet() {
+        if (this.pet != null) {
+            return true;
+        } else return false;
     }
     
     

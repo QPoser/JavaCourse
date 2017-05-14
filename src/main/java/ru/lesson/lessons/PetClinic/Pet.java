@@ -22,6 +22,7 @@ public abstract class Pet {
     public void Health() {
         hp = 100;
     }
+
     
     public void rename(String name) {
         this.name = name;

@@ -1,8 +1,13 @@
 package ru.lesson.lessons.PetClinic;
 
+import ru.lesson.lessons.Arrays.Arrlist;
+
+import java.util.*;
+
 public class Clinic {
-    private Client[] clients = new Client[15];
-    private Client NoneClient = new Client("None");
+    //private List<Client> clients = new ArrayList<Client>();
+    private Map<Integer, Client> clientMap = new TreeMap<Integer, Client>();
+    //private Client CurrentClient = new Client("None");
     private String name;
     
     Clinic(String name) {
@@ -14,58 +19,55 @@ public class Clinic {
     }
     
     public void addClient(Client client) {
-        Boolean place = false;
-        for (int i = 0; i < clients.length; i++) {
-            if (clients[i] == null) {
-                clients[i] = client;
-                place = true;
+                clientMap.put(clientMap.size()+1, client);
                 System.out.println(client.getName() + " added");
-                break;
             }
-            
-        }
-        if (!place) {
-            System.out.println("Havent place");
-        }
-    }
+
     
-    public Client getClient(String name) {
-        for(int i = 0; i < clients.length; i++) {
-            if (clients[i] != null) {
-            if (clients[i].getName().equals(name)) {
-                return clients[i];
-            }
+    public boolean getClients(String name) {
+        Map<Integer, Client> retClient = new HashMap<Integer, Client>();
+        for(Integer i : clientMap.keySet()) {
+            if (clientMap.get(i).getName().equals(name)) {
+                retClient.put(i, clientMap.get(i));
             }
         }
-        return null;
-    }
-    
-    public Boolean isCanAdd(String clientName) {
-        Client testClient = getClient(clientName);
-        if (testClient == null) {
-            return true;
-        } else {
+        if (retClient.size() == 0) {
+            System.out.println("Clients with name " + name + " doesn't found");
             return false;
         }
-    }
-    
-    public void findPet(String petName) {
-        for (int i = 0; i<clients.length; i++) {
-        if (clients[i] != null && clients[i].getPet() != null) {
-        if(clients[i].getPet().getName().equals(petName)) {
-            System.out.println(clients[i].getName() + " have a pet " + clients[i].getPet().getName());
+        for (Integer i : retClient.keySet()) {
+            System.out.println("[" + i +"] " + retClient.get(i).getName());
         }
+        return true;
+    }
+
+    public Client getClient(int id) {
+        if (clientMap.containsKey(id)) {
+            return clientMap.get(id);
+        } else {
+            System.out.println("No Client!");
+            return null;
+        }
+    }
+
+    
+    public boolean getPets(String petName) {
+        Boolean contPet = false;
+        for (Integer i : clientMap.keySet()) {
+            if (clientMap.get(i).getPet() != null && clientMap.get(i).getPet().getName().equals(petName)) {
+                System.out.println("[" + i + "] " + clientMap.get(i).getName() + " have a pet " + clientMap.get(i).getPet().getName());
+                contPet = true;
             }
         }
+        return contPet;
     }
     
-    public void deleteClient(String name) {
-        for (int i = 0; i<clients.length; i++) {
-            if (clients[i].getName().equals(name)) {
-                clients[i] = null;
-                System.out.println(name + " deleted!");
-                break;
-            }
+    public void deleteClient(int id) {
+        if (clientMap.containsKey(id)) {
+            System.out.println("Client " + clientMap.get(id).getName() + " deleted!");
+            clientMap.remove(id);
+        } else {
+            System.out.println("No client with id [" + id + "]");
         }
     }
 }
