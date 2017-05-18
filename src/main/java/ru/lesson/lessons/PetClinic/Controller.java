@@ -7,12 +7,6 @@ public class Controller {
     Client client = null;
 
 
-    /**
-     * Производим добавление клиентов в клинику \ животных к клиенту
-     * @param clinic
-     * @param
-     * @throws UserExceptions Если при добавлении клиента != 3
-     */
     public void addClient(Clinic clinic, String name) {
             Client client = new Client(name);
             clinic.addClient(client);

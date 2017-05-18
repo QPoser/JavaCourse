@@ -31,7 +31,12 @@ public class Client {
             System.out.println(name + ": pet setted!");
         }
         else {
-            System.out.println(name + ": i have a pet!");
+            if (pet == null) {
+                this.pet = null;
+            }
+            else {
+                System.out.println(name + ": i have a pet!");
+            }
         }
     }
     

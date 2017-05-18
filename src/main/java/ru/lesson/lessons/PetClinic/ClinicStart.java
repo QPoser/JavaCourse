@@ -38,8 +38,8 @@ public class ClinicStart {
             case 0:
                 putLogic();
                 try {
-                    scanner.nextLine();
                     cmd = scanner.nextInt();
+                    scanner.nextLine();
                     switch (cmd) {
 
                         case 1:
@@ -100,6 +100,7 @@ public class ClinicStart {
 
                         case 2:
                             //Rename
+                            control.rename(clinic, clientId);
                             break;
 
                         case 3:
@@ -109,10 +110,13 @@ public class ClinicStart {
 
                         case 4:
                             //Get balance
+                            control.getBalance(clinic, clientId);
                             break;
 
                         case 5:
                             //Delete Account
+                            control.delete(clinic, clientId);
+                            level = 0;
                             break;
                     }
                 } else {
@@ -124,33 +128,32 @@ public class ClinicStart {
 
                         case 1:
                             //Rename
-                            control.addPet(clinic, clientId);
-                            //client = control.GetClient(clinic, clientId);
+                            control.rename(clinic, clientId);
                             break;
 
                         case 2:
                             //Rename pet
-
+                            control.renamePet(clinic, clientId);
                             break;
 
                         case 3:
                             //Delete pet
-
+                            control.deletePet(clinic, clientId);
                             break;
 
                         case 4:
                             //Put balance
-
+                            control.setBalance(clinic, clientId);
                             break;
 
                         case 5:
                             //Get balance
-
+                            control.getBalance(clinic, clientId);
                             break;
 
                         case 6:
                             //Delete
-
+                            control.delete(clinic, clientId);
                             break;
                     }
                 }
@@ -185,7 +188,7 @@ public class ClinicStart {
                     System.out.println("Balance: " + control.getClient(clinic, clientId).getBalance());
                     if (control.getClient(clinic, clientId).getPet() != null) {
                         hasPet = true;
-                        System.out.println(control.getClient(clinic, clientId) + " " + control.getClient(clinic, clientId).getPet().getName());
+                        System.out.println(control.getClient(clinic, clientId).getName() + " " + control.getClient(clinic, clientId).getPet().getName());
                         System.out.println("[1] - Rename");
                         System.out.println("[2] - Rename pet");
                         System.out.println("[3] - Delete pet");
@@ -194,6 +197,7 @@ public class ClinicStart {
                         System.out.println("[6] - Delete");
                     }
                     else {
+                        hasPet = false;
                         System.out.println("[1] - AddPet");
                         System.out.println("[2] - Rename");
                         System.out.println("[3] - Put balance");
