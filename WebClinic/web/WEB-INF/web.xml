@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>ClinicPet</display-name>
+
+    <description>
+
+        This is a web application.
+    </description>
+
+    <servlet>
+
+        <servlet-name>ClinicServlet</servlet-name>
+        <servlet-class>ru.lesson.lessons.PetClinic.ClinicServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ClinicServlet</servlet-name>
+        <url-pattern></url-pattern>
+    </servlet-mapping>
+</web-app>
