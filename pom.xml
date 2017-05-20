@@ -5,7 +5,10 @@
   <groupId>ru.lesson</groupId>
   <artifactId>lessons</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <modules>
+        <module>PetWeb</module>
+    </modules>
+    <packaging>pom</packaging>
  
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
