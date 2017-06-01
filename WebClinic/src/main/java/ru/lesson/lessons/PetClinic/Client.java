@@ -1,5 +1,7 @@
 package ru.lesson.lessons.PetClinic;
 
+import ru.lesson.lessons.PetClinic.models.Pet;
+
 public class Client {
     private String name;
     private Pet pet = null;

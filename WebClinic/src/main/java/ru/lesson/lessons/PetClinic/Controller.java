@@ -1,5 +1,9 @@
 package ru.lesson.lessons.PetClinic;
 
+import ru.lesson.lessons.PetClinic.models.Cat;
+import ru.lesson.lessons.PetClinic.models.Dog;
+import ru.lesson.lessons.PetClinic.models.Pet;
+
 import java.util.Scanner;
 
 public class Controller {

@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <a href = "${pageContext.servletContext.contextPath}/views/user/CreateUser.jsp">Add client</a>
   </body>
 </html>

@@ -1,8 +1,10 @@
-package ru.lesson.lessons.PetClinic;
+package ru.lesson.lessons.PetClinic.models;
+
+import ru.lesson.lessons.PetClinic.models.Pet;
 
 public class Dog extends Pet {
     
-    Dog(String name, int years) {
+    public Dog(String name, int years) {
         super(name, years);
     }
     

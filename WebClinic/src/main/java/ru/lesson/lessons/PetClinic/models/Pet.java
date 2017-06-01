@@ -1,9 +1,10 @@
-package ru.lesson.lessons.PetClinic;
+package ru.lesson.lessons.PetClinic.models;
 
 public abstract class Pet {
     private String name;
     private int yearOld;
     private int hp = 50;
+    private int id;
     
     
     Pet(String name, int years) {
@@ -30,6 +31,10 @@ public abstract class Pet {
     
     public int test() {
         return hp;
+    }
+
+    public final void setId(Integer id) {
+        this.id = id;
     }
     
     public String getName() {
