@@ -24,13 +24,14 @@ public class EditUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         req.setAttribute("user", this.USER_CACHE.getUser(Integer.valueOf(id)));
+        req.setAttribute("pet", this.USER_CACHE.getUser(Integer.valueOf(id)).getPet());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/user/EditUser.jsp");
         dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.USER_CACHE.edit( new User(this.ids.incrementAndGet(), req.getParameter("login"), req.getParameter("email")));
-        resp.sendRedirect("/user/view");
+        this.USER_CACHE.edit( new User(Integer.valueOf(req.getParameter("id")), req.getParameter("login"), req.getParameter("email")));
+        resp.sendRedirect(String.format("%s", req.getContextPath(), "/user/view"));
     }
 }

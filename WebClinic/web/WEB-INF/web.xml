@@ -35,6 +35,11 @@
         <servlet-name>UserEdit</servlet-name>
         <servlet-class>ru.lesson.lessons.PetClinic.servlets.EditUserServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>PetEdit</servlet-name>
+        <servlet-class>ru.lesson.lessons.PetClinic.servlets.CreatePetServlet</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>ClinicServlet</servlet-name>
@@ -44,6 +49,11 @@
     <servlet-mapping>
         <servlet-name>UserDelete</servlet-name>
         <url-pattern>/user/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>PetEdit</servlet-name>
+        <url-pattern>/user/createPet</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

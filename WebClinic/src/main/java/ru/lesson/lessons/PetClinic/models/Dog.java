@@ -8,11 +8,11 @@ public class Dog extends Pet {
         super(name, years);
     }
     
-    public void voice() {
-        System.out.println(getName() + " Guav Guav");
+    public String voice() {
+        return "Guav Guav";
     }
     
     public String type() {
-        return "dog";
+        return "Dog";
     }
 }

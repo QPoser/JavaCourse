@@ -45,7 +45,7 @@ public abstract class Pet {
         this.name = name;
     }
     
-    public abstract void voice();
+    public abstract String voice();
     
     public abstract String type();
 }

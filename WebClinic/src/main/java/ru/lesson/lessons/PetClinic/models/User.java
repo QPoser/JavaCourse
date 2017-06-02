@@ -29,6 +29,10 @@ public class User {
         return email;
     }
 
+    public Pet getPet() {
+        return this.pet;
+    }
+
     public void putPet(Pet pet) {
         this.pet = pet;
     }

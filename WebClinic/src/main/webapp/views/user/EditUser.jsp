@@ -25,8 +25,16 @@
         <tr>
             <td align="right" >Email : </td>
             <td>
-                <input type="text" name="email" value="${user.email}">
+                <input type="email" name="email" value="${user.email}">
             </td>
+        </tr>
+        <tr>
+        <c:if test="${pet == null}">
+            <span>Havent pet! </span><a href = "${pageContext.servletContext.contextPath}/user/createPet?id=${user.id}">Create!</a>
+        </c:if>
+            <c:if test="${pet != null}">
+                <span>${pet.type()} ${pet.name} ${pet.age} ${pet.voice()}</span>
+            </c:if>
         </tr>
         <tr>
             <td><input type="submit" align="center" value="Submit"/></td>
