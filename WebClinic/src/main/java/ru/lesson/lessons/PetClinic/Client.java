@@ -37,7 +37,7 @@ public class Client {
                 this.pet = null;
             }
             else {
-                System.out.println(name + ": i have a pet!");
+                System.out.println(name + ": i have a pet!!");
             }
         }
     }
