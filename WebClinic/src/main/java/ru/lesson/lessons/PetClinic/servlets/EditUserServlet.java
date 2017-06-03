@@ -1,5 +1,6 @@
 package ru.lesson.lessons.PetClinic.servlets;
 
+import ru.lesson.lessons.PetClinic.models.Pet;
 import ru.lesson.lessons.PetClinic.models.User;
 import ru.lesson.lessons.PetClinic.store.UserCache;
 
@@ -31,7 +32,10 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.USER_CACHE.edit( new User(Integer.valueOf(req.getParameter("id")), req.getParameter("login"), req.getParameter("email")));
+        Pet pet = this.USER_CACHE.getUser(Integer.valueOf(req.getParameter("id"))).getPet();
+        User us = new User(Integer.valueOf(req.getParameter("id")), req.getParameter("login"), req.getParameter("email"));
+        us.putPet(pet);
+        this.USER_CACHE.edit(us);
         resp.sendRedirect(String.format("%s", req.getContextPath(), "/user/view"));
     }
 }

@@ -30,10 +30,23 @@
         </tr>
         <tr>
         <c:if test="${pet == null}">
-            <span>Havent pet! </span><a href = "${pageContext.servletContext.contextPath}/user/createPet?id=${user.id}">Create!</a>
+            <span>Havent pet! </span><a href = "${pageContext.servletContext.contextPath}/user/createPet?id=${user.id}&addPet=1">Create!</a>
         </c:if>
             <c:if test="${pet != null}">
                 <span>${pet.type()} ${pet.name} ${pet.age} ${pet.voice()}</span>
+                <br>
+                <a href = "${pageContext.servletContext.contextPath}/user/editPet?id=${user.id}&editPet=1">
+                    <input type = "button" align = "center" value="Edit">
+                </a>
+                <!-- <form action="${pageContext.servletContext.contextPath}/user/addPet" method="get">
+                <input type="hidden" name="id" value="${user.id}">
+                <input type = "hidden" name="editPet" value="1">
+                <input type = "submit" align = "center" value="Edit">
+                </form> -->
+                <br>
+                <a href = "${pageContext.servletContext.contextPath}/user/deletePet?id=${user.id}">
+                    <input type = "button" align = "center" value="Delete">
+                </a>
             </c:if>
         </tr>
         <tr>

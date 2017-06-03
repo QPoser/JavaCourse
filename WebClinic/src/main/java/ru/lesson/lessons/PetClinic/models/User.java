@@ -37,7 +37,7 @@ public class User {
         this.pet = pet;
     }
 
-    public void deletePet(Pet pet) {
+    public void deletePet() {
         this.pet = null;
     }
 }
