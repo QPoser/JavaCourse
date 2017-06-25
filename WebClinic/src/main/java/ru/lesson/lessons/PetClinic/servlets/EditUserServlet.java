@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -25,17 +26,22 @@ public class EditUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         req.setAttribute("user", this.USER_CACHE.getUser(Integer.valueOf(id)));
-        req.setAttribute("pet", this.USER_CACHE.getUser(Integer.valueOf(id)).getPet());
+        req.setAttribute("pets", null);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/user/EditUser.jsp");
         dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Pet pet = this.USER_CACHE.getUser(Integer.valueOf(req.getParameter("id"))).getPet();
-        User us = new User(Integer.valueOf(req.getParameter("id")), req.getParameter("login"), req.getParameter("email"));
-        us.putPet(pet);
-        this.USER_CACHE.edit(us);
+        ArrayList<Pet> pet = this.USER_CACHE.getUser(Integer.valueOf(req.getParameter("id"))).getPets();
+        User us = new User(Integer.valueOf(req.getParameter("id")), req.getParameter("login"), req.getParameter("email"), req.getParameter("password"));
+        us.putPets(pet);
+        this.USER_CACHE.editUser(us);
         resp.sendRedirect(String.format("%s", req.getContextPath(), "/user/view"));
+    }
+
+    @Override
+    public void destroy() {
+        USER_CACHE.close();
     }
 }

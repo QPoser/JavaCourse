@@ -12,6 +12,11 @@
     </description>
 
     <servlet>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>ru.lesson.lessons.PetClinic.servlets.ClinicServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>ClinicServlet</servlet-name>
         <servlet-class>ru.lesson.lessons.PetClinic.servlets.ClinicServlet</servlet-class>
     </servlet>
@@ -24,6 +29,11 @@
     <servlet>
         <servlet-name>UserCreate</servlet-name>
         <servlet-class>ru.lesson.lessons.PetClinic.servlets.CreateUserServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UserLogin</servlet-name>
+        <servlet-class>ru.lesson.lessons.PetClinic.servlets.LoginServlet</servlet-class>
     </servlet>
 
     <servlet>
@@ -69,6 +79,11 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>UserLogin</servlet-name>
+        <url-pattern>/user/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>UserEdit</servlet-name>
         <url-pattern>/user/edit</url-pattern>
     </servlet-mapping>
@@ -81,6 +96,24 @@
     <servlet-mapping>
         <servlet-name>UserView</servlet-name>
         <url-pattern>/user/view</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/clinic</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/images</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
     </servlet-mapping>
 
     <error-page>

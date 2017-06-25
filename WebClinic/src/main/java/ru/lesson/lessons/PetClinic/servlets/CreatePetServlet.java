@@ -24,7 +24,7 @@ public class CreatePetServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.valueOf(req.getParameter("id"));
         req.setAttribute("user", this.USER_CACHE.getUser(id));
-        req.setAttribute("pet", this.USER_CACHE.getUser(id).getPet());
+        req.setAttribute("pets", this.USER_CACHE.getUser(id).getPets());
         req.setAttribute("addPet", req.getParameter("addPet"));
         req.setAttribute("editPet", req.getParameter("editPet"));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/user/SetPet.jsp");
@@ -49,7 +49,7 @@ public class CreatePetServlet extends HttpServlet {
             Pet pet = null;
             pet = typeOfPet(req);
             us.putPet(pet);
-            this.USER_CACHE.edit(us);
+            this.USER_CACHE.editUser(us);
         }
     }
 
@@ -57,10 +57,10 @@ public class CreatePetServlet extends HttpServlet {
         if (req.getParameter("editPet") != null) {
             User us = this.USER_CACHE.getUser(Integer.valueOf(req.getParameter("id")));
             Pet pet = null;
-            us.deletePet();
+            us.deletePet(req.getParameter("petName"));
             pet = typeOfPet(req);
             us.putPet(pet);
-            this.USER_CACHE.edit(us);
+            this.USER_CACHE.editUser(us);
         }
     }
 

@@ -9,12 +9,14 @@ public class User {
     private final int id;
     private final String login;
     private final String email;
-    private Pet pet = null;
+    private String password;
+    private ArrayList<Pet> pets = new ArrayList<Pet>();
 
-    public User(final int id, final String login, final String email) {
+    public User(final int id, final String login, final String email, String password) {
         this.id = id;
         this.login = login;
         this.email = email;
+        this.password = password;
     }
 
     public int getId() {
@@ -29,16 +31,49 @@ public class User {
         return email;
     }
 
-    public Pet getPet() {
-        return this.pet;
+    public ArrayList<Pet> getPets() {
+        return this.pets;
     }
 
-    public void putPet(Pet pet) {
-        this.pet = pet;
+    public Pet getPet(String name) {
+        for (Pet p : this.pets) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
     }
 
-    public void deletePet() {
-        this.pet = null;
+    public boolean putPet(Pet pet) {
+        for (Pet p : this.pets) {
+            if (p.getName().equals(pet.getName())) {
+                return false;
+            }
+        }
+        this.pets.add(pet);
+        return true;
+    }
+
+    public void putPets(ArrayList<Pet> pets1) {
+        for (Pet pet : pets1) {
+            putPet(pet);
+        }
+    }
+
+    public void deletePet(String name) {
+        for (Pet pet : this.pets) {
+            if (pet.getName().equals(name)) {
+                this.pets.remove(pet);
+            }
+        }
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }
 

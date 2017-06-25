@@ -3,7 +3,10 @@ package ru.lesson.lessons.PetClinic.servlets;
 
 import ru.lesson.lessons.PetClinic.models.Dog;
 import ru.lesson.lessons.PetClinic.models.Pet;
+import ru.lesson.lessons.PetClinic.models.User;
+import ru.lesson.lessons.PetClinic.store.UserCache;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,43 +20,41 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ClinicServlet extends HttpServlet {
 
+    private final UserCache USER_CACHE = UserCache.getInstance();
+
     final List<Pet> pets = new CopyOnWriteArrayList<Pet>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect(String.format("%s%s", req.getContextPath(), "/user/view"));
-        /*resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-        writer.append(
-                "<!DOCTYPE html>" +
-                "<html>" +
-                        "<head>" +
-                        "<title>Clinic</title>" +
-                        "</head>" +
-                        "<body><span>open</span>" +
-                        "<form action = '" + req.getContextPath()+"/' method='post'>" +
-                        "Name : <input type = 'text' name= 'name'>" +
-                        "<input type='submit' value='Submit'>" + this.viewPets() +
-                        "</body>" +
-                        "</html>"
-        );
-        writer.flush(); */
+        String type = (String) req.getAttribute("type");
+        if (type != null) {
+            User user = USER_CACHE.getUser(Integer.valueOf((String) req.getAttribute("userId")));
+            req.setAttribute("type", type);
+            req.setAttribute("user", user);
+        } else {
+            req.setAttribute("type", "guest");
+        }
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/site/index.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.pets.add(new Dog(req.getParameter("name"), 5));
-        doGet(req, resp);
+        String type = (String) req.getAttribute("type");
+        String uid = (String) req.getAttribute("uid");
+        if (type != null) {
+            User user = USER_CACHE.getUser(Integer.valueOf(uid));
+            req.setAttribute("type", type);
+            req.setAttribute("user", user);
+        } else {
+            req.setAttribute("type", "guest");
+        }
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/site/index.jsp");
+        dispatcher.forward(req, resp);
     }
 
-    private String viewPets() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<p>Pets</p>");
-        sb.append("<table style='border : 1px solid black'>");
-        for (Pet pet : this.pets) {
-                sb.append("<tr><td style='border : 1px solid black'>").append(pet.getName()).append("</td></tr>");
-        }
-        sb.append("</table>");
-        return sb.toString();
+    @Override
+    public void destroy() {
+        USER_CACHE.close();
     }
 }

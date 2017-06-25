@@ -1,0 +1,21 @@
+body {
+    margin: 0px;
+    background-color: #bbbbc1;
+}
+
+#register {
+    background-color: whitesmoke;
+    box-shadow: 0 0 5px black;
+    text-align: center;
+}
+
+#regForm {
+    background-color: navajowhite;
+    text-align: center;
+}
+
+#regForm input {
+    height: 25px;
+    width: 140px;
+    transition: 1s;
+}

@@ -15,6 +15,7 @@
 
 <form action="${pageContext.servletContext.contextPath}/user/edit" method="POST">
     <input type="hidden" name="id" value="${user.id}">
+    <input type="hidden" name="email" value="${user.email}">
     <table>
         <tr>
             <td align="right" >Login : </td>
@@ -25,28 +26,28 @@
         <tr>
             <td align="right" >Email : </td>
             <td>
-                <input type="email" name="email" value="${user.email}">
+                <input type="password" name="password" value="${user.password}">
             </td>
         </tr>
         <tr>
-        <c:if test="${pet == null}">
-            <span>Havent pet! </span><a href = "${pageContext.servletContext.contextPath}/user/createPet?id=${user.id}&addPet=1">Create!</a>
+        <c:if test="${pets.size() == 0}">
+            <span>Havent pets! </span><a href = "${pageContext.servletContext.contextPath}/user/createPet?id=${user.id}&addPet=1">Create!</a>
         </c:if>
-            <c:if test="${pet != null}">
+            <c:if test="${pets != null}">
+                <c:forEach items ="${pets}" var="pet" varStatus="status">
                 <span>${pet.type()} ${pet.name} ${pet.age} ${pet.voice()}</span>
                 <br>
-                <a href = "${pageContext.servletContext.contextPath}/user/editPet?id=${user.id}&editPet=1">
+                <a href = "${pageContext.servletContext.contextPath}/user/editPet?id=${user.id}&editPet=1&petName=${pet.name}">
                     <input type = "button" align = "center" value="Edit">
                 </a>
-                <!-- <form action="${pageContext.servletContext.contextPath}/user/addPet" method="get">
-                <input type="hidden" name="id" value="${user.id}">
-                <input type = "hidden" name="editPet" value="1">
-                <input type = "submit" align = "center" value="Edit">
-                </form> -->
                 <br>
-                <a href = "${pageContext.servletContext.contextPath}/user/deletePet?id=${user.id}">
+                <a href = "${pageContext.servletContext.contextPath}/user/deletePet?id=${user.id}&petName=${pet.name}">
                     <input type = "button" align = "center" value="Delete">
-                </a>
+                </a> <br>
+                </c:forEach>
+                <a href = "${pageContext.servletContext.contextPath}/user/createPet?id=${user.id}&addPet=1">
+                    <input type = "button" align = "center" value="Add pet">
+                </a> <br>
             </c:if>
         </tr>
         <tr>

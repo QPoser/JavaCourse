@@ -3,6 +3,7 @@ package ru.lesson.lessons.PetClinic.servlets;
 import ru.lesson.lessons.PetClinic.models.User;
 import ru.lesson.lessons.PetClinic.store.UserCache;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,16 @@ public class CreateUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.USER_CACHE.add(new User(this.ids.incrementAndGet(), req.getParameter("login"), req.getParameter("email")));
-        resp.sendRedirect(String.format("%s", req.getContextPath(), "/user/view"));
+        int id = this.ids.incrementAndGet();
+        this.USER_CACHE.add(new User(id, req.getParameter("login"), req.getParameter("email"), req.getParameter("password")));
+        req.setAttribute("uid", String.valueOf(id));
+        req.setAttribute("type", "user");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/");
+        dispatcher.forward(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        USER_CACHE.close();
     }
 }

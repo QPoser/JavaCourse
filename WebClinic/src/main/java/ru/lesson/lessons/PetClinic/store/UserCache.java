@@ -1,40 +1,75 @@
 package ru.lesson.lessons.PetClinic.store;
 
+import ru.lesson.lessons.PetClinic.models.Doctor;
 import ru.lesson.lessons.PetClinic.models.User;
 
 import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Andrey on 31.05.2017.
  */
-public class UserCache {
+public class UserCache implements Storage {
     private static final UserCache INSTANCE = new UserCache();
 
-    private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<Integer, User>();
+    //private final Storage storage = new MemoryStorage();
 
-    public static UserCache getInstance() {
-        return INSTANCE;
-    }
+    private final Storage storage = new JdbcStorage();
 
+    public static UserCache getInstance() { return INSTANCE; }
+
+
+    @Override
     public Collection<User> values() {
-        return this.users.values();
+        return this.storage.values();
     }
 
-    public void add(User us) {
-        this.users.put(us.getId(), us);
+    @Override
+    public void add(User user) {
+        this.storage.add(user);
     }
 
-    public void delete(Integer id) {
-        this.users.remove(id);
+    @Override
+    public void editUser(User user) {
+        this.storage.editUser(user);
     }
 
-    public User getUser(Integer id) {
-        return this.users.get(id);
+    @Override
+    public void editDoctor(Doctor doctor) {
+        this.storage.editDoctor(doctor);
     }
 
+    @Override
+    public void deleteUser(int id) {
+        this.storage.deleteUser(id);
+    }
 
-    public void edit(User user) {
-        this.users.replace(user.getId(), user);
+    @Override
+    public void deleteDoctor(int id) {
+        this.storage.deleteDoctor(id);
+    }
+
+    @Override
+    public User getUser(int id) {
+        return this.storage.getUser(id);
+    }
+
+    @Override
+    public Doctor getDoctor(int id) {
+        return this.storage.getDoctor(id);
+    }
+
+    @Override
+    public User findByLogin(String login) {
+        return this.storage.findByLogin(login);
+    }
+
+    @Override
+    public int generateId() {
+        return this.storage.generateId();
+    }
+
+    @Override
+    public void close() {
+        this.storage.close();
     }
 }

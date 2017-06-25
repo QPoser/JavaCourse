@@ -18,7 +18,7 @@ public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        this.USER_CACHE.delete(Integer.valueOf(id));
+        this.USER_CACHE.deleteUser(Integer.valueOf(id));
         resp.sendRedirect(String.format("%s%s", req.getContextPath(), "/user/view"));
     }
 }

@@ -19,9 +19,10 @@ public class DeletePetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String s = req.getParameter("id");
-        this.USER_CACHE.getUser(Integer.valueOf(s)).deletePet();
+        String namePet = req.getParameter("petName");
+        this.USER_CACHE.getUser(Integer.valueOf(s)).deletePet(namePet);
         req.setAttribute("user", this.USER_CACHE.getUser(Integer.valueOf(s)));
-        req.setAttribute("pet", this.USER_CACHE.getUser(Integer.valueOf(s)).getPet());
+        req.setAttribute("pets", this.USER_CACHE.getUser(Integer.valueOf(s)).getPets());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/user/EditUser.jsp");
         dispatcher.forward(req, resp);
     }

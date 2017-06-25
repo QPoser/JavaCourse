@@ -1,0 +1,10 @@
+body {
+    margin: 0px;
+    background-color: #bbbbc1;
+}
+
+#register {
+    background-color: whitesmoke;
+    box-shadow: 0 0 5px black;
+    text-align: center;
+}
