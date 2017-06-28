@@ -34,7 +34,7 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<Pet> pet = this.USER_CACHE.getUser(Integer.valueOf(req.getParameter("id"))).getPets();
-        User us = new User(Integer.valueOf(req.getParameter("id")), req.getParameter("login"), req.getParameter("email"), req.getParameter("password"));
+        User us = new User(Integer.valueOf(req.getParameter("id")), req.getParameter("login"), req.getParameter("email"), req.getParameter("password"), "user");
         us.putPets(pet);
         this.USER_CACHE.editUser(us);
         resp.sendRedirect(String.format("%s", req.getContextPath(), "/user/view"));

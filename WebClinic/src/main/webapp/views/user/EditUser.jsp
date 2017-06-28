@@ -24,7 +24,7 @@
             </td>
         </tr>
         <tr>
-            <td align="right" >Email : </td>
+            <td align="right" >Password : </td>
             <td>
                 <input type="password" name="password" value="${user.password}">
             </td>

@@ -40,7 +40,7 @@ public class JdbcStorage implements Storage {
         final ResultSet rs = statement.executeQuery("SELECT * FROM client");
             {
                 while (rs.next()) {
-                    users.add(new User(rs.getInt("uid"), rs.getString("name"), rs.getString("email"), rs.getString("password")));
+                    users.add(new User(rs.getInt("uid"), rs.getString("name"), rs.getString("email"), rs.getString("password"), "user"));
                 }
             }
         } catch (SQLException e) {
@@ -93,10 +93,6 @@ public class JdbcStorage implements Storage {
         }
     }
 
-    @Override
-    public void deleteDoctor(int id) {
-
-    }
 
     @Override
     public User getUser(int id) {
@@ -106,7 +102,7 @@ public class JdbcStorage implements Storage {
             statement.setInt(1, id);
             final ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                return new User(rs.getInt("uid"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
+                return new User(rs.getInt("uid"), rs.getString("name"), rs.getString("email"), rs.getString("password"), "user");
             }
             return null;
         } catch (SQLException e) {
@@ -128,7 +124,7 @@ public class JdbcStorage implements Storage {
             statement.setString(1, login);
             final ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                return new User(rs.getInt("uid"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
+                return new User(rs.getInt("uid"), rs.getString("name"), rs.getString("email"), rs.getString("password"), "user");
             }
             return null;
         } catch (SQLException e) {

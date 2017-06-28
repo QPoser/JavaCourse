@@ -20,8 +20,6 @@ public interface Storage {
 
     public void deleteUser(final int id);
 
-    public void deleteDoctor(final int id);
-
     public User getUser(final int id);
 
     public Doctor getDoctor(final int id);

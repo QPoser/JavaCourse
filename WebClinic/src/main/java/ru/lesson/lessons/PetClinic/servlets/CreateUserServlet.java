@@ -23,7 +23,8 @@ public class CreateUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = this.ids.incrementAndGet();
-        this.USER_CACHE.add(new User(id, req.getParameter("login"), req.getParameter("email"), req.getParameter("password")));
+        this.USER_CACHE.add(new User(id, req.getParameter("login"), req.getParameter("email"), req.getParameter("password"), "user"));
+        id = USER_CACHE.findByLogin(req.getParameter("email")).getId();
         req.setAttribute("uid", String.valueOf(id));
         req.setAttribute("type", "user");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/");

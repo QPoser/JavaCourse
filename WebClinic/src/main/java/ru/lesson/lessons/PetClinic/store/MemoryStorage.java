@@ -42,10 +42,6 @@ public class MemoryStorage implements Storage {
         this.users.remove(id);
     }
 
-    @Override
-    public void deleteDoctor(int id) {
-
-    }
 
 
     @Override

@@ -13,7 +13,9 @@ public class UserCache implements Storage {
 
     //private final Storage storage = new MemoryStorage();
 
-    private final Storage storage = new JdbcStorage();
+    //private final Storage storage = new JdbcStorage();
+
+    private final Storage storage = new HibernateStorage();
 
     public static UserCache getInstance() { return INSTANCE; }
 
@@ -43,10 +45,6 @@ public class UserCache implements Storage {
         this.storage.deleteUser(id);
     }
 
-    @Override
-    public void deleteDoctor(int id) {
-        this.storage.deleteDoctor(id);
-    }
 
     @Override
     public User getUser(int id) {

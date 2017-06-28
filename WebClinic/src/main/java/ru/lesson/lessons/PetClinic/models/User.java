@@ -6,17 +6,27 @@ import java.util.ArrayList;
  * Created by Andrey on 31.05.2017.
  */
 public class User {
-    private final int id;
-    private final String login;
-    private final String email;
+    private int id;
+    private String login;
+    private String email;
     private String password;
+    private String role;
     private ArrayList<Pet> pets = new ArrayList<Pet>();
 
-    public User(final int id, final String login, final String email, String password) {
+    public User() {
+
+    }
+
+    public User(final int id, final String login, final String email, String password, String role) {
         this.id = id;
         this.login = login;
         this.email = email;
         this.password = password;
+        this.role = role;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -27,8 +37,24 @@ public class User {
         return login;
     }
 
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public ArrayList<Pet> getPets() {
